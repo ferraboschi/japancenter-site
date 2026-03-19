@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Japan Center Milano — コワーキング・イベント・コミュニティ</title>
     <meta name="description" content="Japan Center Milano: coworking, eventi, cultura giapponese. Lo spazio dove Italia e Giappone si incontrano. 日本とイタリアが出会う場所。">
-    <link rel="icon" href="logo-pittogramma.png" type="image/png">
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
@@ -176,8 +179,8 @@
         /* ===== COWORKING ===== */
         #coworking { background: var(--white); }
         .cowork-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.2rem; max-width: 1100px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(2, 1fr);
+            gap: 1.2rem; max-width: 900px; margin: 0 auto;
         }
         .cowork-card {
             background: var(--off-white); border: 1px solid var(--light);
@@ -430,7 +433,7 @@
             }
             .nav-links.open { display: flex; }
             .mobile-menu-btn { display: block; }
-            .space-grid, .community-hero-inner { grid-template-columns: 1fr; }
+            .space-grid, .community-hero-inner, .cowork-grid { grid-template-columns: 1fr; }
             section { padding: 4rem 1.5rem; }
             .hero { padding: 7rem 1.5rem 3rem; }
         }
