@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Japan Center Milano — コワーキング・イベント・コミュニティ</title>
+    <meta name="description" content="Japan Center Milano: coworking, eventi, cultura giapponese. Lo spazio dove Italia e Giappone si incontrano. 日本とイタリアが出会う場所。">
+    <link rel="icon" href="logo-pittogramma.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --red: #D72B2B;
+            --dark: #111111;
+            --white: #FFFFFF;
+            --off-white: #FAFAFA;
+            --light: #F3F3F3;
+            --mid: #E8E8E8;
+            --text: #1a1a1a;
+            --text-light: #666666;
+            --text-muted: #999999;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+
+        body {
+            font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+            background: var(--white);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        nav.scrolled { padding: 0.7rem 2rem; box-shadow: 0 2px 20px rgba(0,0,0,0.05); }
+
+        .nav-logo {
+            display: flex; align-items: center; gap: 0.6rem;
+        }
+        .nav-logo img { height: 32px; }
+        .nav-logo span {
+            font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em; color: var(--text);
+        }
+        .nav-logo .jp {
+            font-family: 'Noto Sans JP', sans-serif; font-size: 0.7rem;
+            opacity: 0.35; font-weight: 400; margin-left: 0.3rem;
+        }
+
+        .nav-links { display: flex; gap: 1.8rem; align-items: center; }
+        .nav-links a {
+            color: var(--text-light); text-decoration: none;
+            font-size: 0.85rem; font-weight: 600; letter-spacing: 0.03em;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--text); }
+        .nav-cta {
+            background: var(--red) !important; color: var(--white) !important;
+            padding: 0.55rem 1.3rem; border-radius: 100px; font-weight: 700 !important;
+            font-size: 0.8rem !important; transition: all 0.3s !important;
+        }
+        .nav-cta:hover { transform: scale(1.05); box-shadow: 0 4px 20px rgba(215,43,43,0.3); }
+
+        .mobile-menu-btn {
+            display: none; background: none; border: none;
+            color: var(--text); font-size: 1.5rem; cursor: pointer;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+            padding: 8rem 2rem 4rem; position: relative; overflow: hidden;
+            background: var(--white);
+        }
+
+        .hero-bg-art {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0; pointer-events: none;
+        }
+
+        .hero-content { position: relative; z-index: 1; max-width: 900px; }
+
+        .hero-pittogramma {
+            width: 80px; height: auto; margin-bottom: 2rem;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .hero-tag {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: rgba(215,43,43,0.06); border: 1px solid rgba(215,43,43,0.15);
+            padding: 0.45rem 1.1rem; border-radius: 100px;
+            font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.1em; color: var(--red); margin-bottom: 2rem;
+        }
+        .hero-tag .pulse {
+            width: 7px; height: 7px; background: var(--red);
+            border-radius: 50%; animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.5); }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.8rem, 7vw, 5.5rem); font-weight: 900;
+            line-height: 0.95; letter-spacing: -0.04em; margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+        .hero h1 .accent { color: var(--red); }
+        .hero h1 .line-jp {
+            display: block; font-family: 'Noto Sans JP', sans-serif;
+            font-size: clamp(1.2rem, 3vw, 2.2rem); font-weight: 700;
+            color: var(--text-muted); margin-top: 0.5rem; letter-spacing: 0.03em;
+        }
+
+        .hero-sub {
+            font-size: clamp(1rem, 1.8vw, 1.2rem); line-height: 1.7;
+            color: var(--text-light); max-width: 580px; margin: 0 auto 2.5rem;
+        }
+
+        .hero-buttons { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; }
+
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.9rem 2rem; border-radius: 100px; font-family: inherit;
+            font-size: 0.95rem; font-weight: 700; text-decoration: none;
+            cursor: pointer; border: none; transition: all 0.3s ease;
+        }
+        .btn-primary { background: var(--red); color: var(--white); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(215,43,43,0.3); }
+        .btn-outline { background: transparent; color: var(--text); border: 2px solid var(--mid); }
+        .btn-outline:hover { border-color: var(--text); transform: translateY(-2px); }
+
+        /* ===== MARQUEE ===== */
+        .marquee-container {
+            overflow: hidden; padding: 1.2rem 0;
+            border-top: 1px solid var(--light); border-bottom: 1px solid var(--light);
+            background: var(--off-white);
+        }
+        .marquee { display: flex; animation: marquee 30s linear infinite; width: max-content; }
+        .marquee span {
+            font-size: 0.8rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.15em; color: var(--text-muted);
+            white-space: nowrap; padding: 0 1.5rem;
+        }
+        .marquee span.dot-sep { color: var(--red); font-size: 0.6rem; padding: 0 0.8rem; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* ===== SECTIONS ===== */
+        section { padding: 6rem 2rem; }
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-header .tag {
+            font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.15em; color: var(--red); margin-bottom: 1rem; display: block;
+        }
+        .section-header h2 {
+            font-size: clamp(2rem, 4.5vw, 3.2rem); font-weight: 900;
+            letter-spacing: -0.03em; line-height: 1.1; color: var(--text);
+        }
+        .section-header h2 .jp-sub {
+            display: block; font-family: 'Noto Sans JP', sans-serif;
+            font-size: clamp(0.85rem, 1.8vw, 1.2rem); color: var(--text-muted);
+            font-weight: 400; margin-top: 0.5rem;
+        }
+
+        /* ===== COWORKING ===== */
+        #coworking { background: var(--white); }
+        .cowork-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.2rem; max-width: 1100px; margin: 0 auto;
+        }
+        .cowork-card {
+            background: var(--off-white); border: 1px solid var(--light);
+            border-radius: 20px; padding: 2.2rem; transition: all 0.4s ease;
+            position: relative; overflow: hidden;
+        }
+        .cowork-card::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 100%; height: 3px;
+            background: var(--red); opacity: 0; transition: opacity 0.4s;
+        }
+        .cowork-card:hover { border-color: rgba(215,43,43,0.2); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.06); }
+        .cowork-card:hover::before { opacity: 1; }
+        .cowork-card .card-svg { width: 56px; height: 56px; margin-bottom: 1rem; }
+        .cowork-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.3rem; color: var(--text); }
+        .cowork-card .jp-label {
+            font-family: 'Noto Sans JP', sans-serif; font-size: 0.7rem;
+            color: var(--text-muted); margin-bottom: 0.8rem;
+        }
+        .cowork-card p { color: var(--text-light); line-height: 1.6; font-size: 0.9rem; }
+
+        /* ===== HIGHLIGHT BANNER ===== */
+        .highlight-banner {
+            background: var(--red); padding: 4rem 2rem; text-align: center;
+            position: relative; overflow: hidden;
+        }
+        .highlight-banner .banner-art {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 0;
+        }
+        .highlight-banner h2 {
+            font-size: clamp(1.6rem, 3.5vw, 2.5rem); font-weight: 900;
+            letter-spacing: -0.02em; position: relative; z-index: 1;
+            max-width: 700px; margin: 0 auto 1rem; color: var(--white);
+        }
+        .highlight-banner p {
+            font-size: 1rem; color: rgba(255,255,255,0.85); position: relative; z-index: 1;
+            max-width: 550px; margin: 0 auto 2rem;
+        }
+
+        /* ===== EVENTS ===== */
+        #eventi { background: var(--off-white); }
+        .events-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.2rem; max-width: 1100px; margin: 0 auto;
+        }
+        .event-card {
+            background: var(--white); border: 1px solid var(--light);
+            border-radius: 20px; overflow: hidden; transition: all 0.4s ease;
+        }
+        .event-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+        .event-img {
+            height: 200px; position: relative; overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .event-img svg { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
+        .event-img .date-badge {
+            position: absolute; top: 0.8rem; left: 0.8rem; background: var(--red);
+            color: white; padding: 0.4rem 0.8rem; border-radius: 10px; font-weight: 700; font-size: 0.8rem; z-index: 2;
+        }
+        .event-img .type-badge {
+            position: absolute; top: 0.8rem; right: 0.8rem;
+            background: rgba(255,255,255,0.9); backdrop-filter: blur(10px);
+            color: var(--text); padding: 0.35rem 0.7rem; border-radius: 8px;
+            font-size: 0.65rem; text-transform: uppercase;
+            letter-spacing: 0.1em; font-weight: 700; z-index: 2;
+        }
+        .event-body { padding: 1.3rem; }
+        .event-body h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.2rem; color: var(--text); }
+        .event-body .jp-title {
+            font-family: 'Noto Sans JP', sans-serif; font-size: 0.75rem;
+            color: var(--text-muted); margin-bottom: 0.6rem;
+        }
+        .event-body p { color: var(--text-light); font-size: 0.85rem; line-height: 1.5; }
+
+        /* ===== PRICING ===== */
+        #prezzi { background: var(--white); position: relative; overflow: hidden; }
+        .pricing-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.2rem; max-width: 1100px; margin: 0 auto; position: relative; z-index: 1;
+        }
+        .pricing-card {
+            background: var(--off-white); border: 1px solid var(--light);
+            border-radius: 24px; padding: 2.2rem; position: relative;
+            transition: all 0.4s ease; display: flex; flex-direction: column;
+        }
+        .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.06); }
+        .pricing-card.featured { border-color: var(--red); background: rgba(215,43,43,0.03); }
+        .pricing-card.featured::before {
+            content: 'PIÙ SCELTO • 人気'; position: absolute; top: -11px; left: 50%;
+            transform: translateX(-50%); background: var(--red); color: var(--white);
+            font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em;
+            padding: 0.3rem 1rem; border-radius: 100px; white-space: nowrap;
+        }
+        .pricing-card .plan-svg { width: 48px; height: 48px; margin-bottom: 0.8rem; }
+        .pricing-card .plan-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.15rem; }
+        .pricing-card .plan-jp {
+            font-family: 'Noto Sans JP', sans-serif; font-size: 0.7rem;
+            color: var(--text-muted); margin-bottom: 1rem;
+        }
+        .pricing-card .price { font-size: 2.5rem; font-weight: 900; line-height: 1; margin-bottom: 0.2rem; color: var(--text); }
+        .pricing-card .price span { font-size: 0.9rem; font-weight: 400; color: var(--text-muted); }
+        .pricing-card .price-note { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1.3rem; }
+        .pricing-card .features-list { list-style: none; padding: 0; margin-bottom: 1.5rem; flex-grow: 1; }
+        .pricing-card .features-list li {
+            padding: 0.45rem 0; color: var(--text-light); font-size: 0.85rem;
+            border-bottom: 1px solid var(--light);
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+        .pricing-card .features-list li .fc { color: var(--red); font-weight: 700; font-size: 0.75rem; }
+        .pricing-card .btn { width: 100%; justify-content: center; text-align: center; }
+
+        /* ===== COMMUNITY HERO ===== */
+        .community-hero {
+            background: var(--off-white); padding: 5rem 2rem;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .community-hero-inner {
+            max-width: 1100px; width: 100%;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+        }
+        .community-hero-text h2 {
+            font-size: clamp(2rem, 4vw, 3rem); font-weight: 900;
+            letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 0.5rem;
+        }
+        .community-hero-text .jp-sub {
+            font-family: 'Noto Sans JP', sans-serif; font-size: 0.9rem;
+            color: var(--text-muted); margin-bottom: 1.5rem;
+        }
+        .community-hero-text p {
+            color: var(--text-light); line-height: 1.7; font-size: 1rem; margin-bottom: 1.5rem;
+        }
+        .community-hero-text .features {
+            display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 2rem;
+        }
+        .community-hero-text .feat {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            font-size: 0.85rem; color: var(--text-light);
+            background: var(--white); border: 1px solid var(--light);
+            padding: 0.4rem 0.8rem; border-radius: 100px;
+        }
+        .community-hero-text .feat .fc { color: var(--red); font-weight: 700; font-size: 0.7rem; }
+        .community-hero-img { text-align: center; }
+        .community-hero-img img {
+            max-width: 100%; height: auto; border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        /* ===== STATS ===== */
+        .stats-section { padding: 4rem 2rem; background: var(--white); }
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2rem; max-width: 900px; margin: 0 auto; text-align: center;
+        }
+        .stat-item .number { font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 900; color: var(--red); line-height: 1; }
+        .stat-item .label { font-size: 0.85rem; color: var(--text-light); margin-top: 0.4rem; }
+        .stat-item .jp-stat {
+            font-family: 'Noto Sans JP', sans-serif; font-size: 0.65rem;
+            color: var(--text-muted); margin-top: 0.2rem;
+        }
+
+        /* ===== SPACE ===== */
+        #spazio { background: var(--off-white); position: relative; }
+        .space-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+            max-width: 1100px; margin: 0 auto; align-items: center;
+        }
+        .space-text h2 { font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 900; letter-spacing: -0.02em; margin-bottom: 0.4rem; }
+        .space-text .jp-sub {
+            font-family: 'Noto Sans JP', sans-serif; font-size: 0.85rem;
+            color: var(--text-muted); margin-bottom: 1.2rem;
+        }
+        .space-text p { color: var(--text-light); line-height: 1.7; font-size: 1rem; margin-bottom: 1.2rem; }
+        .space-details { display: flex; flex-direction: column; gap: 0.7rem; }
+        .space-detail { display: flex; align-items: center; gap: 0.7rem; font-size: 0.9rem; color: var(--text-light); }
+        .space-detail .icon-circle {
+            width: 34px; height: 34px; background: rgba(215,43,43,0.06); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+        .space-visual svg { width: 100%; border-radius: 20px; }
+
+        /* ===== CONTATTI ===== */
+        #contatti { background: var(--white); text-align: center; }
+        .contact-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.2rem; max-width: 800px; margin: 0 auto;
+        }
+        .contact-item {
+            padding: 1.8rem; background: var(--off-white); border-radius: 16px;
+            border: 1px solid var(--light);
+        }
+        .contact-item h4 { font-size: 0.95rem; margin-bottom: 0.2rem; color: var(--text); }
+        .contact-item p { color: var(--text-light); font-size: 0.85rem; }
+        .contact-item a { color: var(--red); text-decoration: none; font-weight: 600; }
+        .contact-item .c-svg { width: 40px; height: 40px; margin: 0 auto 0.8rem; }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--dark); color: rgba(255,255,255,0.5);
+            padding: 3rem 2rem; text-align: center;
+        }
+        .footer-content { max-width: 800px; margin: 0 auto; }
+        .footer-logo {
+            display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+            margin-bottom: 1.2rem;
+        }
+        .footer-logo img { height: 28px; filter: brightness(10); }
+        .footer-logo span { color: rgba(255,255,255,0.8); font-size: 1rem; font-weight: 700; }
+        .footer-social { display: flex; justify-content: center; gap: 0.8rem; margin-bottom: 1.2rem; }
+        .footer-social a {
+            width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.08);
+            display: flex; align-items: center; justify-content: center;
+            color: rgba(255,255,255,0.5); text-decoration: none; transition: all 0.3s;
+        }
+        .footer-social a:hover { background: var(--red); color: var(--white); }
+        .footer-links { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
+        .footer-links a { color: rgba(255,255,255,0.35); text-decoration: none; font-size: 0.8rem; transition: color 0.3s; }
+        .footer-links a:hover { color: rgba(255,255,255,0.8); }
+        .footer-legal { font-size: 0.7rem; color: rgba(255,255,255,0.2); line-height: 1.7; }
+
+        /* ===== ANIMATIONS ===== */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hero-content > * { animation: fadeInUp 0.7s ease forwards; opacity: 0; }
+        .hero-content > *:nth-child(1) { animation-delay: 0.1s; }
+        .hero-content > *:nth-child(2) { animation-delay: 0.25s; }
+        .hero-content > *:nth-child(3) { animation-delay: 0.4s; }
+        .hero-content > *:nth-child(4) { animation-delay: 0.55s; }
+        .hero-content > *:nth-child(5) { animation-delay: 0.7s; }
+
+        @keyframes sakuraFall {
+            0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.4; }
+            100% { transform: translateY(500px) rotate(360deg); opacity: 0; }
+        }
+
+        /* ===== MOBILE ===== */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; position: absolute; top: 100%; left: 0; width: 100%;
+                background: rgba(255,255,255,0.97); backdrop-filter: blur(20px);
+                flex-direction: column; padding: 1.5rem; gap: 1rem;
+                border-bottom: 1px solid var(--light);
+            }
+            .nav-links.open { display: flex; }
+            .mobile-menu-btn { display: block; }
+            .space-grid, .community-hero-inner { grid-template-columns: 1fr; }
+            section { padding: 4rem 1.5rem; }
+            .hero { padding: 7rem 1.5rem 3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <div class="nav-logo">
+            <img src="logo-pittogramma.png" alt="Japan Center">
+            <span>JAPAN CENTER<span class="jp">ジャパンセンター</span></span>
+        </div>
+        <button class="mobile-menu-btn" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+        <div class="nav-links">
+            <a href="#coworking">Coworking</a>
+            <a href="#prezzi">Prezzi</a>
+            <a href="#eventi">Eventi</a>
+            <a href="#spazio">Lo Spazio</a>
+            <a href="#contatti">Contatti</a>
+            <a href="https://community.japancenter.it/join?invitation_token=cd1b8aa00557574ee0e9e7c0b28d3f91f0d2c143-7cf79766-89de-4c7a-9b37-6a6c05407d0f" class="nav-cta" target="_blank">Entra nella Community</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-bg-art">
+            <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;">
+                <!-- Subtle wave pattern -->
+                <defs>
+                    <pattern id="seigaiha" x="0" y="0" width="60" height="52" patternUnits="userSpaceOnUse">
+                        <path d="M0,26 Q15,0 30,26 Q45,52 60,26" fill="none" stroke="rgba(0,0,0,0.025)" stroke-width="0.8"/>
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#seigaiha)"/>
+                <!-- Subtle red circle (sun) -->
+                <circle cx="720" cy="350" r="280" fill="rgba(215,43,43,0.02)"/>
+                <circle cx="720" cy="350" r="180" fill="rgba(215,43,43,0.015)"/>
+            </svg>
+            <div id="sakura-container" style="position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;pointer-events:none;"></div>
+        </div>
+        <div class="hero-content">
+            <img src="logo-pittogramma.png" alt="Japan Center" class="hero-pittogramma">
+            <div class="hero-tag">
+                <span class="pulse"></span>
+                Milano — Ora aperto
+            </div>
+            <h1>
+                Lo spazio dove <span class="accent">Italia</span> e <span class="accent">Giappone</span> si incontrano.
+                <span class="line-jp">日本とイタリアが出会う場所</span>
+            </h1>
+            <p class="hero-sub">
+                Coworking, eventi culturali, workshop, networking. Un punto di riferimento per chi vive il Giappone ogni giorno — nel cuore di Milano.
+            </p>
+            <div class="hero-buttons">
+                <a href="https://community.japancenter.it/join?invitation_token=cd1b8aa00557574ee0e9e7c0b28d3f91f0d2c143-7cf79766-89de-4c7a-9b37-6a6c05407d0f" class="btn btn-primary" target="_blank">Unisciti alla Community →</a>
+                <a href="#coworking" class="btn btn-outline">Scopri il Coworking</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee-container">
+        <div class="marquee">
+            <span>コワーキング</span><span class="dot-sep">●</span>
+            <span>Coworking</span><span class="dot-sep">●</span>
+            <span>イベント</span><span class="dot-sep">●</span>
+            <span>Eventi</span><span class="dot-sep">●</span>
+            <span>コミュニティ</span><span class="dot-sep">●</span>
+            <span>Community</span><span class="dot-sep">●</span>
+            <span>ワークショップ</span><span class="dot-sep">●</span>
+            <span>Workshop</span><span class="dot-sep">●</span>
+            <span>ネットワーキング</span><span class="dot-sep">●</span>
+            <span>Networking</span><span class="dot-sep">●</span>
+            <span>文化</span><span class="dot-sep">●</span>
+            <span>Cultura</span><span class="dot-sep">●</span>
+            <span>コワーキング</span><span class="dot-sep">●</span>
+            <span>Coworking</span><span class="dot-sep">●</span>
+            <span>イベント</span><span class="dot-sep">●</span>
+            <span>Eventi</span><span class="dot-sep">●</span>
+            <span>コミュニティ</span><span class="dot-sep">●</span>
+            <span>Community</span><span class="dot-sep">●</span>
+            <span>ワークショップ</span><span class="dot-sep">●</span>
+            <span>Workshop</span><span class="dot-sep">●</span>
+            <span>ネットワーキング</span><span class="dot-sep">●</span>
+            <span>Networking</span><span class="dot-sep">●</span>
+            <span>文化</span><span class="dot-sep">●</span>
+            <span>Cultura</span><span class="dot-sep">●</span>
+        </div>
+    </div>
+
+    <!-- COWORKING -->
+    <section id="coworking">
+        <div class="section-header reveal">
+            <span class="tag">Coworking — コワーキング</span>
+            <h2>Non è un ufficio.<br>È un ecosistema.<span class="jp-sub">オフィスじゃない。エコシステムだ。</span></h2>
+        </div>
+        <div class="cowork-grid">
+            <div class="cowork-card reveal">
+                <svg class="card-svg" viewBox="0 0 56 56" fill="none">
+                    <rect x="6" y="28" width="44" height="3" rx="1.5" fill="rgba(215,43,43,0.15)"/>
+                    <rect x="14" y="31" width="3" height="16" rx="1" fill="rgba(215,43,43,0.1)"/>
+                    <rect x="39" y="31" width="3" height="16" rx="1" fill="rgba(215,43,43,0.1)"/>
+                    <path d="M31,6 L24,24 L31,24 L26,36 L37,18 L30,18Z" fill="var(--red)" opacity="0.7"/>
+                </svg>
+                <h3>Hot Desk</h3>
+                <div class="jp-label">ホットデスク</div>
+                <p>Postazione flessibile in uno spazio ispirato al design giapponese. Wi-Fi ultraveloce, caffè incluso, zero vincoli.</p>
+            </div>
+            <div class="cowork-card reveal">
+                <svg class="card-svg" viewBox="0 0 56 56" fill="none">
+                    <line x1="16" y1="14" x2="16" y2="48" stroke="var(--red)" stroke-width="2.5" opacity="0.5"/>
+                    <line x1="40" y1="14" x2="40" y2="48" stroke="var(--red)" stroke-width="2.5" opacity="0.5"/>
+                    <line x1="11" y1="14" x2="45" y2="14" stroke="var(--red)" stroke-width="2.5" opacity="0.6"/>
+                    <path d="M9,11 Q28,3 47,11" stroke="var(--red)" stroke-width="2.5" fill="none" opacity="0.8"/>
+                    <line x1="14" y1="22" x2="42" y2="22" stroke="var(--red)" stroke-width="1.5" opacity="0.3"/>
+                </svg>
+                <h3>Dedicated Desk</h3>
+                <div class="jp-label">専用デスク</div>
+                <p>La tua scrivania fissa nel cuore del Japan Center. Spazio personale, armadietto, accesso 24/7.</p>
+            </div>
+            <div class="cowork-card reveal">
+                <svg class="card-svg" viewBox="0 0 56 56" fill="none">
+                    <circle cx="20" cy="16" r="6" fill="rgba(215,43,43,0.15)"/>
+                    <circle cx="36" cy="16" r="6" fill="rgba(215,43,43,0.15)"/>
+                    <path d="M8,44 Q8,30 20,30 Q26,30 28,33 Q30,30 36,30 Q48,30 48,44" fill="rgba(215,43,43,0.1)"/>
+                    <rect x="18" y="38" width="20" height="12" rx="3" fill="rgba(215,43,43,0.08)" stroke="rgba(215,43,43,0.25)" stroke-width="1.5"/>
+                </svg>
+                <h3>Meeting Room</h3>
+                <div class="jp-label">会議室</div>
+                <p>Sale riunioni minimal e attrezzate per presentazioni, call internazionali e sessioni creative.</p>
+            </div>
+            <div class="cowork-card reveal">
+                <svg class="card-svg" viewBox="0 0 56 56" fill="none">
+                    <path d="M12,22 L15,46 Q17,50 28,50 Q39,50 41,46 L44,22Z" fill="rgba(215,43,43,0.1)" stroke="rgba(215,43,43,0.3)" stroke-width="1.5"/>
+                    <path d="M44,28 Q51,28 51,34 Q51,40 44,40" stroke="rgba(215,43,43,0.25)" stroke-width="1.5" fill="none"/>
+                    <path d="M24,16 Q26,8 28,16" stroke="rgba(215,43,43,0.2)" stroke-width="1.5" fill="none"/>
+                    <path d="M30,14 Q32,5 34,14" stroke="rgba(215,43,43,0.15)" stroke-width="1.5" fill="none"/>
+                </svg>
+                <h3>Area Relax</h3>
+                <div class="jp-label">リラックスエリア</div>
+                <p>Angolo tè giapponese, libreria curata, spazio per staccare e ricaricare mente e corpo.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- HIGHLIGHT BANNER -->
+    <div class="highlight-banner reveal">
+        <div class="banner-art">
+            <svg viewBox="0 0 1440 280" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;opacity:0.1;">
+                <defs>
+                    <g id="sakura">
+                        <ellipse cx="0" cy="-7" rx="3.5" ry="7" fill="white" transform="rotate(0)"/>
+                        <ellipse cx="0" cy="-7" rx="3.5" ry="7" fill="white" transform="rotate(72)"/>
+                        <ellipse cx="0" cy="-7" rx="3.5" ry="7" fill="white" transform="rotate(144)"/>
+                        <ellipse cx="0" cy="-7" rx="3.5" ry="7" fill="white" transform="rotate(216)"/>
+                        <ellipse cx="0" cy="-7" rx="3.5" ry="7" fill="white" transform="rotate(288)"/>
+                    </g>
+                </defs>
+                <use href="#sakura" transform="translate(100,50) scale(1.2)"/>
+                <use href="#sakura" transform="translate(300,120) scale(0.8)"/>
+                <use href="#sakura" transform="translate(500,40) scale(1)"/>
+                <use href="#sakura" transform="translate(700,180) scale(1.3)"/>
+                <use href="#sakura" transform="translate(900,80) scale(0.9)"/>
+                <use href="#sakura" transform="translate(1100,150) scale(1.1)"/>
+                <use href="#sakura" transform="translate(1300,60) scale(0.7)"/>
+            </svg>
+        </div>
+        <h2>Lavora con chi condivide la tua passione per il Giappone.</h2>
+        <p>Non è solo una scrivania. È una rete di persone, idee e opportunità che nasce ogni giorno.</p>
+        <a href="https://community.japancenter.it/join?invitation_token=cd1b8aa00557574ee0e9e7c0b28d3f91f0d2c143-7cf79766-89de-4c7a-9b37-6a6c05407d0f" class="btn btn-primary" target="_blank" style="background:var(--white);color:var(--red);">Prenota una prova gratuita →</a>
+    </div>
+
+    <!-- EVENTI -->
+    <section id="eventi">
+        <div class="section-header reveal">
+            <span class="tag">Eventi — イベント</span>
+            <h2>Succede sempre qualcosa.<span class="jp-sub">いつも何かが起きている。</span></h2>
+        </div>
+        <div class="events-grid">
+            <div class="event-card reveal">
+                <div class="event-img">
+                    <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice">
+                        <rect width="400" height="200" fill="#F8F0F0"/>
+                        <text x="200" y="90" text-anchor="middle" font-family="'Noto Sans JP'" font-size="52" font-weight="900" fill="rgba(215,43,43,0.08)">言葉</text>
+                        <g opacity="0.35">
+                            <rect x="240" y="40" width="90" height="36" rx="12" fill="white" stroke="rgba(0,0,0,0.08)" stroke-width="1"/>
+                            <text x="285" y="63" text-anchor="middle" font-family="'Noto Sans JP'" font-size="13" fill="#333">こんにちは</text>
+                            <rect x="260" y="90" width="70" height="30" rx="10" fill="var(--red)"/>
+                            <text x="295" y="110" text-anchor="middle" font-family="'Space Grotesk'" font-size="12" font-weight="600" fill="white">Ciao!</text>
+                        </g>
+                        <text x="200" y="175" text-anchor="middle" font-size="10" fill="rgba(0,0,0,0.12)" font-weight="600" letter-spacing="0.15em">TANDEM LINGUISTICO</text>
+                    </svg>
+                    <span class="date-badge">Ogni Mercoledì</span>
+                    <span class="type-badge">Lingua</span>
+                </div>
+                <div class="event-body">
+                    <h3>Tandem Linguistico IT ↔ JP</h3>
+                    <div class="jp-title">イタリア語・日本語タンデム</div>
+                    <p>Scambio linguistico tra italiani e giapponesi. Nessun livello minimo richiesto, solo voglia di parlare.</p>
+                </div>
+            </div>
+            <div class="event-card reveal">
+                <div class="event-img">
+                    <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice">
+                        <rect width="400" height="200" fill="#FDF6ED"/>
+                        <defs>
+                            <g id="lantern2">
+                                <line x1="0" y1="-20" x2="0" y2="-10" stroke="rgba(0,0,0,0.15)" stroke-width="0.8"/>
+                                <rect x="-10" y="-10" width="20" height="28" rx="5" fill="none" stroke="rgba(212,168,67,0.3)" stroke-width="1.2"/>
+                                <rect x="-8" y="-8" width="16" height="24" rx="4" fill="rgba(212,168,67,0.06)"/>
+                            </g>
+                        </defs>
+                        <use href="#lantern2" transform="translate(80,55)"/>
+                        <use href="#lantern2" transform="translate(160,45) scale(1.2)"/>
+                        <use href="#lantern2" transform="translate(240,50)"/>
+                        <use href="#lantern2" transform="translate(320,60) scale(0.9)"/>
+                        <g transform="translate(200,135)" opacity="0.2">
+                            <rect x="-7" y="-40" width="14" height="40" rx="3" fill="#333"/>
+                            <rect x="-9" y="-44" width="18" height="7" rx="3" fill="#333"/>
+                            <rect x="-20" y="-6" width="12" height="8" rx="2" fill="none" stroke="#333" stroke-width="1.2"/>
+                            <rect x="8" y="-6" width="12" height="8" rx="2" fill="none" stroke="#333" stroke-width="1.2"/>
+                        </g>
+                        <text x="200" y="180" text-anchor="middle" font-family="'Noto Sans JP'" font-size="11" fill="rgba(180,140,50,0.25)">乾杯 — Kanpai</text>
+                    </svg>
+                    <span class="date-badge">Ogni Venerdì</span>
+                    <span class="type-badge">Social</span>
+                </div>
+                <div class="event-body">
+                    <h3>Aperitivo Giapponese</h3>
+                    <div class="jp-title">ジャパニーズアペリティーヴォ</div>
+                    <p>Sake, birra giapponese e stuzzichini. Il venerdì si chiude la settimana insieme, con chi capisce.</p>
+                </div>
+            </div>
+            <div class="event-card reveal">
+                <div class="event-img">
+                    <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice">
+                        <rect width="400" height="200" fill="#F0F4F8"/>
+                        <g stroke="rgba(74,144,217,0.12)" stroke-width="1" fill="none">
+                            <line x1="80" y1="100" x2="200" y2="55"/><line x1="200" y1="55" x2="320" y2="100"/>
+                            <line x1="80" y1="100" x2="200" y2="145"/><line x1="200" y1="145" x2="320" y2="100"/>
+                            <line x1="140" y1="75" x2="260" y2="125"/><line x1="260" y1="75" x2="140" y2="125"/>
+                        </g>
+                        <circle cx="80" cy="100" r="6" fill="rgba(74,144,217,0.15)" stroke="rgba(74,144,217,0.3)" stroke-width="1"/>
+                        <circle cx="200" cy="55" r="8" fill="rgba(215,43,43,0.12)" stroke="rgba(215,43,43,0.3)" stroke-width="1"/>
+                        <circle cx="320" cy="100" r="6" fill="rgba(74,144,217,0.15)" stroke="rgba(74,144,217,0.3)" stroke-width="1"/>
+                        <circle cx="200" cy="145" r="8" fill="rgba(215,43,43,0.12)" stroke="rgba(215,43,43,0.3)" stroke-width="1"/>
+                        <!-- Flags -->
+                        <g transform="translate(140,165)" opacity="0.35">
+                            <rect width="24" height="16" rx="2" fill="white" stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+                            <circle cx="12" cy="8" r="4" fill="var(--red)"/>
+                        </g>
+                        <g transform="translate(235,165)" opacity="0.35">
+                            <rect width="24" height="16" rx="2" fill="white" stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+                            <rect width="8" height="16" rx="1" fill="#009246"/>
+                            <rect x="16" width="8" height="16" rx="1" fill="#CE2B37"/>
+                        </g>
+                        <text x="200" y="192" text-anchor="middle" font-size="9" fill="rgba(0,0,0,0.1)" font-weight="600" letter-spacing="0.15em">BUSINESS BRIDGE</text>
+                    </svg>
+                    <span class="date-badge">Mensile</span>
+                    <span class="type-badge">Business</span>
+                </div>
+                <div class="event-body">
+                    <h3>Business Bridge: Italia–Giappone</h3>
+                    <div class="jp-title">ビジネスブリッジ：イタリア＝日本</div>
+                    <p>Talk, panel e networking per chi lavora o vuole lavorare con il mercato giapponese.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="prezzi">
+        <div class="section-header reveal">
+            <span class="tag">Piani & Prezzi — 料金プラン</span>
+            <h2>Trova la tua scrivania.<span class="jp-sub">あなたのデスクを見つけよう。</span></h2>
+        </div>
+        <div class="pricing-grid">
+            <div class="pricing-card reveal">
+                <svg class="plan-svg" viewBox="0 0 48 48" fill="none">
+                    <circle cx="24" cy="24" r="22" fill="rgba(215,43,43,0.04)" stroke="rgba(215,43,43,0.12)" stroke-width="1"/>
+                    <path d="M28,10 L22,26 L28,26 L24,38 L34,20 L28,20Z" fill="var(--red)" opacity="0.5"/>
+                </svg>
+                <div class="plan-name">Day Pass</div>
+                <div class="plan-jp">デイパス</div>
+                <div class="price">€15<span>/giorno</span></div>
+                <div class="price-note">Nessun impegno, vieni quando vuoi</div>
+                <ul class="features-list">
+                    <li><span class="fc">✓</span> Postazione hot desk</li>
+                    <li><span class="fc">✓</span> Wi-Fi ultraveloce</li>
+                    <li><span class="fc">✓</span> Caffè e tè verde illimitati</li>
+                    <li><span class="fc">✓</span> Accesso area relax</li>
+                    <li><span class="fc">✓</span> Community digitale</li>
+                </ul>
+                <a href="https://community.japancenter.it/join?invitation_token=cd1b8aa00557574ee0e9e7c0b28d3f91f0d2c143-7cf79766-89de-4c7a-9b37-6a6c05407d0f" class="btn btn-outline" target="_blank">Inizia oggi →</a>
+            </div>
+            <div class="pricing-card featured reveal">
+                <svg class="plan-svg" viewBox="0 0 48 48" fill="none">
+                    <circle cx="24" cy="24" r="22" fill="rgba(215,43,43,0.06)" stroke="rgba(215,43,43,0.2)" stroke-width="1"/>
+                    <line x1="15" y1="15" x2="15" y2="38" stroke="var(--red)" stroke-width="2" opacity="0.5"/>
+                    <line x1="33" y1="15" x2="33" y2="38" stroke="var(--red)" stroke-width="2" opacity="0.5"/>
+                    <line x1="11" y1="15" x2="37" y2="15" stroke="var(--red)" stroke-width="2" opacity="0.6"/>
+                    <path d="M9,12 Q24,5 39,12" stroke="var(--red)" stroke-width="2" fill="none" opacity="0.7"/>
+                </svg>
+                <div class="plan-name">Monthly Flex</div>
+                <div class="plan-jp">月額フレックス</div>
+                <div class="price">€199<span>/mese</span></div>
+                <div class="price-note">Il piano perfetto per freelancer e remote worker</div>
+                <ul class="features-list">
+                    <li><span class="fc">✓</span> Hot desk illimitato</li>
+                    <li><span class="fc">✓</span> 4h/mese sala riunioni</li>
+                    <li><span class="fc">✓</span> Accesso eventi esclusivi</li>
+                    <li><span class="fc">✓</span> Caffè e tè verde illimitati</li>
+                    <li><span class="fc">✓</span> Indirizzo aziendale</li>
+                    <li><span class="fc">✓</span> Community digitale premium</li>
+                </ul>
+                <a href="https://community.japancenter.it/join?invitation_token=cd1b8aa00557574ee0e9e7c0b28d3f91f0d2c143-7cf79766-89de-4c7a-9b37-6a6c05407d0f" class="btn btn-primary" target="_blank">Scegli Monthly Flex →</a>
+            </div>
+            <div class="pricing-card reveal">
+                <svg class="plan-svg" viewBox="0 0 48 48" fill="none">
+                    <circle cx="24" cy="24" r="22" fill="rgba(215,43,43,0.04)" stroke="rgba(215,43,43,0.12)" stroke-width="1"/>
+                    <line x1="17" y1="12" x2="17" y2="38" stroke="var(--red)" stroke-width="1.5" opacity="0.5"/>
+                    <rect x="19" y="12" width="15" height="12" rx="1" fill="rgba(215,43,43,0.15)"/>
+                    <circle cx="26.5" cy="18" r="3.5" fill="var(--red)" opacity="0.4"/>
+                </svg>
+                <div class="plan-name">Dedicated Desk</div>
+                <div class="plan-jp">専用デスク</div>
+                <div class="price">€349<span>/mese</span></div>
+                <div class="price-note">La tua scrivania fissa, sempre pronta</div>
+                <ul class="features-list">
+                    <li><span class="fc">✓</span> Scrivania personale fissa</li>
+                    <li><span class="fc">✓</span> Accesso 24/7</li>
+                    <li><span class="fc">✓</span> Armadietto personale</li>
+                    <li><span class="fc">✓</span> 8h/mese sala riunioni</li>
+                    <li><span class="fc">✓</span> Tutti i benefit Monthly</li>
+                    <li><span class="fc">✓</span> Priority eventi e networking</li>
+                </ul>
+                <a href="https://community.japancenter.it/join?invitation_token=cd1b8aa00557574ee0e9e7c0b28d3f91f0d2c143-7cf79766-89de-4c7a-9b37-6a6c05407d0f" class="btn btn-outline" target="_blank">Prenota il tuo desk →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <div class="stats-section reveal">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="number">200+</div>
+                <div class="label">Membri attivi</div>
+                <div class="jp-stat">アクティブメンバー</div>
+            </div>
+            <div class="stat-item">
+                <div class="number">50+</div>
+                <div class="label">Eventi all'anno</div>
+                <div class="jp-stat">年間イベント</div>
+            </div>
+            <div class="stat-item">
+                <div class="number">24/7</div>
+                <div class="label">Accesso coworking</div>
+                <div class="jp-stat">コワーキングアクセス</div>
+            </div>
+            <div class="stat-item">
+                <div class="number">∞</div>
+                <div class="label">Caffè e tè verde</div>
+                <div class="jp-stat">コーヒーと緑茶</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- COMMUNITY HERO -->
+    <div class="community-hero reveal">
+        <div class="community-hero-inner">
+            <div class="community-hero-text">
+                <h2>Non sei solo un membro.<br>Sei parte di qualcosa.</h2>
+                <div class="jp-sub">メンバーじゃない。仲間だ。</div>
+                <p>La community digitale del Japan Center è il luogo dove le connessioni non si fermano quando esci dallo spazio fisico. Discussioni, opportunità, eventi esclusivi, e un network che cresce ogni giorno.</p>
+                <div class="features">
+                    <span class="feat"><span class="fc">✓</span> Canali tematici</span>
+                    <span class="feat"><span class="fc">✓</span> Job board IT–JP</span>
+                    <span class="feat"><span class="fc">✓</span> Eventi esclusivi</span>
+                    <span class="feat"><span class="fc">✓</span> Networking diretto</span>
+                </div>
+                <a href="https://community.japancenter.it/join?invitation_token=cd1b8aa00557574ee0e9e7c0b28d3f91f0d2c143-7cf79766-89de-4c7a-9b37-6a6c05407d0f" class="btn btn-primary" target="_blank">Entra ora — è gratuito →</a>
+            </div>
+            <div class="community-hero-img">
+                <img src="hero-community.png" alt="Japan Center Community App">
+            </div>
+        </div>
+    </div>
+
+    <!-- SPAZIO -->
+    <section id="spazio">
+        <div class="space-grid">
+            <div class="space-text reveal">
+                <h2>Vieni a trovarci.</h2>
+                <div class="jp-sub">遊びに来てください。</div>
+                <p>Il Japan Center è uno spazio fisico nel cuore di Milano, progettato per chi lavora, crea e vive il Giappone quotidianamente. La porta è sempre aperta.</p>
+                <div class="space-details">
+                    <div class="space-detail">
+                        <span class="icon-circle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8,1 C5,1 2,3.5 2,7 C2,11.5 8,15 8,15 C8,15 14,11.5 14,7 C14,3.5 11,1 8,1Z" fill="var(--red)" opacity="0.5"/><circle cx="8" cy="7" r="2" fill="white"/></svg></span>
+                        <span>Milano — Zona San Cristoforo</span>
+                    </div>
+                    <div class="space-detail">
+                        <span class="icon-circle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="var(--red)" stroke-width="1.2" fill="none" opacity="0.5"/><line x1="8" y1="4" x2="8" y2="8" stroke="var(--red)" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/><line x1="8" y1="8" x2="11" y2="10" stroke="var(--red)" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/></svg></span>
+                        <span>Lun–Ven: 9:00–18:00</span>
+                    </div>
+                    <div class="space-detail">
+                        <span class="icon-circle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="4" width="12" height="8" rx="3" fill="var(--red)" opacity="0.12"/><circle cx="8" cy="8" r="2.5" fill="var(--red)" opacity="0.2"/><text x="8" y="9.5" text-anchor="middle" font-size="4" fill="var(--red)" font-weight="900" opacity="0.6">M</text></svg></span>
+                        <span>Metro verde M2 — San Cristoforo</span>
+                    </div>
+                    <div class="space-detail">
+                        <span class="icon-circle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="4" width="12" height="8" rx="1.5" stroke="var(--red)" stroke-width="1.2" fill="none" opacity="0.4"/><path d="M2,5 L8,9 L14,5" stroke="var(--red)" stroke-width="1" fill="none" opacity="0.3"/></svg></span>
+                        <span>hello@japancenter.it</span>
+                    </div>
+                </div>
+            </div>
+            <div class="space-visual reveal">
+                <svg viewBox="0 0 480 360" style="width:100%;border-radius:20px;">
+                    <rect width="480" height="360" rx="20" fill="#F5F0EB"/>
+                    <!-- Subtle sky -->
+                    <rect width="480" height="200" rx="20" fill="#F8F4F0"/>
+                    <!-- Fuji silhouette -->
+                    <path d="M-20,260 L110,130 L240,260Z" fill="rgba(0,0,0,0.03)" stroke="rgba(0,0,0,0.04)" stroke-width="0.5"/>
+                    <path d="M60,165 L110,130 L160,165Z" fill="rgba(255,255,255,0.5)"/>
+                    <!-- Sun -->
+                    <circle cx="380" cy="70" r="35" fill="rgba(215,43,43,0.08)"/>
+                    <!-- Building -->
+                    <rect x="160" y="150" width="180" height="170" fill="white" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
+                    <!-- Roof -->
+                    <path d="M140,150 L250,115 L360,150Z" fill="rgba(215,43,43,0.08)" stroke="rgba(215,43,43,0.15)" stroke-width="1"/>
+                    <!-- Noren -->
+                    <rect x="225" y="240" width="50" height="80" rx="2" fill="rgba(215,43,43,0.1)"/>
+                    <line x1="237" y1="240" x2="237" y2="315" stroke="rgba(215,43,43,0.06)" stroke-width="0.5"/>
+                    <line x1="250" y1="240" x2="250" y2="312" stroke="rgba(215,43,43,0.06)" stroke-width="0.5"/>
+                    <line x1="263" y1="240" x2="263" y2="315" stroke="rgba(215,43,43,0.06)" stroke-width="0.5"/>
+                    <!-- Windows -->
+                    <rect x="178" y="172" width="30" height="24" rx="2" fill="rgba(212,168,67,0.08)" stroke="rgba(0,0,0,0.05)" stroke-width="0.5"/>
+                    <rect x="225" y="172" width="30" height="24" rx="2" fill="rgba(212,168,67,0.1)" stroke="rgba(0,0,0,0.05)" stroke-width="0.5"/>
+                    <rect x="272" y="172" width="30" height="24" rx="2" fill="rgba(212,168,67,0.08)" stroke="rgba(0,0,0,0.05)" stroke-width="0.5"/>
+                    <rect x="178" y="208" width="30" height="24" rx="2" fill="rgba(212,168,67,0.06)" stroke="rgba(0,0,0,0.05)" stroke-width="0.5"/>
+                    <rect x="272" y="208" width="30" height="24" rx="2" fill="rgba(212,168,67,0.06)" stroke="rgba(0,0,0,0.05)" stroke-width="0.5"/>
+                    <!-- Sign -->
+                    <rect x="316" y="215" width="22" height="38" rx="2" fill="rgba(215,43,43,0.08)" stroke="rgba(215,43,43,0.15)" stroke-width="0.5"/>
+                    <text x="327" y="232" text-anchor="middle" font-family="'Noto Sans JP'" font-size="6" fill="rgba(0,0,0,0.2)">日本</text>
+                    <text x="327" y="244" text-anchor="middle" font-family="'Noto Sans JP'" font-size="5" fill="rgba(0,0,0,0.15)">センター</text>
+                    <!-- Lantern -->
+                    <ellipse cx="218" cy="252" rx="5" ry="7" fill="rgba(215,43,43,0.12)" stroke="rgba(215,43,43,0.2)" stroke-width="0.5"/>
+                    <!-- Ground -->
+                    <rect x="0" y="320" width="480" height="40" rx="0" fill="rgba(0,0,0,0.02)"/>
+                    <!-- Trees -->
+                    <g opacity="0.06">
+                        <line x1="400" y1="200" x2="400" y2="320" stroke="#333" stroke-width="2"/>
+                        <circle cx="400" cy="195" r="18" fill="#333"/>
+                        <line x1="430" y1="220" x2="430" y2="320" stroke="#333" stroke-width="1.5"/>
+                        <circle cx="430" cy="215" r="12" fill="#333"/>
+                    </g>
+                    <!-- Label -->
+                    <text x="240" y="348" text-anchor="middle" font-family="'Space Grotesk'" font-size="7" fill="rgba(0,0,0,0.1)" letter-spacing="0.25em">JAPAN CENTER MILANO</text>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTATTI -->
+    <section id="contatti">
+        <div class="section-header reveal">
+            <span class="tag">Contatti — お問い合わせ</span>
+            <h2>Parliamone.<span class="jp-sub">話しましょう。</span></h2>
+        </div>
+        <div class="contact-grid reveal">
+            <div class="contact-item">
+                <svg class="c-svg" viewBox="0 0 40 40" fill="none">
+                    <rect x="4" y="10" width="32" height="20" rx="3" stroke="var(--red)" stroke-width="1.5" fill="rgba(215,43,43,0.03)" opacity="0.6"/>
+                    <path d="M4,12 L20,24 L36,12" stroke="var(--red)" stroke-width="1.5" fill="none" opacity="0.4"/>
+                </svg>
+                <h4>Email</h4>
+                <p><a href="mailto:hello@japancenter.it">hello@japancenter.it</a></p>
+            </div>
+            <div class="contact-item">
+                <svg class="c-svg" viewBox="0 0 40 40" fill="none">
+                    <rect x="6" y="2" width="28" height="36" rx="7" stroke="var(--red)" stroke-width="1.5" fill="rgba(215,43,43,0.03)" opacity="0.6"/>
+                    <circle cx="20" cy="20" r="8" stroke="var(--red)" stroke-width="1" fill="none" opacity="0.3"/>
+                    <circle cx="20" cy="20" r="4" fill="rgba(215,43,43,0.1)"/>
+                    <circle cx="20" cy="33" r="1.5" fill="var(--red)" opacity="0.3"/>
+                </svg>
+                <h4>Instagram</h4>
+                <p><a href="https://instagram.com/japancenter.it" target="_blank">@japancenter.it</a></p>
+            </div>
+            <div class="contact-item">
+                <svg class="c-svg" viewBox="0 0 40 40" fill="none">
+                    <rect x="4" y="4" width="32" height="32" rx="5" stroke="var(--red)" stroke-width="1.5" fill="rgba(215,43,43,0.03)" opacity="0.6"/>
+                    <text x="20" y="27" text-anchor="middle" font-family="'Space Grotesk'" font-size="16" font-weight="700" fill="var(--red)" opacity="0.4">in</text>
+                </svg>
+                <h4>LinkedIn</h4>
+                <p><a href="https://linkedin.com/company/japancenter" target="_blank">Japan Center</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="logo-pittogramma.png" alt="Japan Center">
+                <span>JAPAN CENTER</span>
+            </div>
+            <div class="footer-social">
+                <a href="https://instagram.com/japancenter.it" target="_blank" aria-label="Instagram">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="14" height="14" rx="3.5" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="8" r="3.5" stroke="currentColor" stroke-width="1.3"/><circle cx="12" cy="4" r="0.8" fill="currentColor"/></svg>
+                </a>
+                <a href="https://linkedin.com/company/japancenter" target="_blank" aria-label="LinkedIn">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="14" height="14" rx="2.5" stroke="currentColor" stroke-width="1.3"/><text x="8" y="12" text-anchor="middle" font-size="9" font-weight="700" fill="currentColor">in</text></svg>
+                </a>
+            </div>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Cookie Policy</a>
+                <a href="#">Termini e Condizioni</a>
+            </div>
+            <div class="footer-legal">
+                Japan Center è un progetto di <strong style="color:rgba(255,255,255,0.4);">SAKE COMPANY Srl</strong><br>
+                Via Bianca di Savoia, 17 — 20122 Milano<br>
+                CF/P.IVA: IT 10280600965 — C.S. 10.000€ i.v.<br>
+                Cam. Com. REA MI-2519471<br><br>
+                hello@japancenter.it | 日本センター・ミラノ
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        window.addEventListener('scroll', () => {
+            document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => document.querySelector('.nav-links').classList.remove('open'));
+        });
+
+        // Sakura petals
+        function createPetal() {
+            const c = document.getElementById('sakura-container');
+            if (!c) return;
+            const p = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            p.setAttribute('viewBox', '0 0 12 12');
+            p.style.cssText = 'position:absolute;width:' + (6 + Math.random()*10) + 'px;left:' + (Math.random()*100) + '%;top:-20px;opacity:0;animation:sakuraFall ' + (8+Math.random()*10) + 's linear forwards;animation-delay:' + (Math.random()*3) + 's;';
+            p.innerHTML = '<ellipse cx="6" cy="4" rx="3" ry="5" fill="rgba(215,43,43,0.15)" transform="rotate(' + (Math.random()*40-20) + ',6,6)"/>';
+            c.appendChild(p);
+            setTimeout(() => p.remove(), 20000);
+        }
+        setInterval(createPetal, 1200);
+        for (let i = 0; i < 6; i++) setTimeout(createPetal, i * 400);
+    </script>
+</body>
+</html>
