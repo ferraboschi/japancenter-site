@@ -1058,12 +1058,7 @@
             const grid = document.getElementById('tt-events-grid');
             const container = document.getElementById('tt-events-container');
             try {
-                const resp = await fetch('https://api.tickettailor.com/v1/events?status=published', {
-                    headers: {
-                        'Accept': 'application/json',
-                        'Authorization': 'Basic ' + btoa('sk_14423_308355_296a640c8c7742264a80cd790754802a:')
-                    }
-                });
+                const resp = await fetch('https://japancenter-tt-proxy.f-t-srl.workers.dev/');
                 if (!resp.ok) throw new Error('API error');
                 const json = await resp.json();
                 const events = (json.data || []).filter(e => e.status === 'published' && e.hidden === 'false');
