@@ -256,6 +256,58 @@
         }
         .event-body p { color: var(--text-light); font-size: 0.85rem; line-height: 1.5; }
 
+        /* ===== TICKET TAILOR EVENTS ===== */
+        .tt-events-section { margin-bottom: 3rem; }
+        .tt-events-section .tt-subtitle {
+            text-align: center; font-size: 0.75rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.12em;
+            color: var(--red); margin-bottom: 1.5rem;
+        }
+        .tt-events-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.2rem; max-width: 1100px; margin: 0 auto;
+        }
+        .tt-event-card {
+            background: var(--white); border: 2px solid rgba(215,43,43,0.15);
+            border-radius: 20px; overflow: hidden; transition: all 0.4s ease;
+        }
+        .tt-event-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(215,43,43,0.1); }
+        .tt-event-img {
+            height: 200px; position: relative; overflow: hidden; background: var(--light);
+        }
+        .tt-event-img img { width: 100%; height: 100%; object-fit: cover; }
+        .tt-event-img .tt-date-badge {
+            position: absolute; top: 0.8rem; left: 0.8rem; background: var(--red);
+            color: white; padding: 0.4rem 0.8rem; border-radius: 10px;
+            font-weight: 700; font-size: 0.8rem; z-index: 2;
+        }
+        .tt-event-img .tt-price-badge {
+            position: absolute; top: 0.8rem; right: 0.8rem;
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+            color: var(--text); padding: 0.35rem 0.7rem; border-radius: 8px;
+            font-size: 0.75rem; font-weight: 700; z-index: 2;
+        }
+        .tt-event-body { padding: 1.3rem; }
+        .tt-event-body h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text); }
+        .tt-event-body .tt-venue {
+            font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.6rem;
+            display: flex; align-items: center; gap: 0.3rem;
+        }
+        .tt-event-body .tt-desc { color: var(--text-light); font-size: 0.85rem; line-height: 1.5; margin-bottom: 1rem; }
+        .tt-event-body .tt-cta {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            background: var(--red); color: var(--white); padding: 0.55rem 1.2rem;
+            border-radius: 100px; font-size: 0.8rem; font-weight: 700;
+            text-decoration: none; transition: all 0.3s;
+        }
+        .tt-event-body .tt-cta:hover { transform: scale(1.05); box-shadow: 0 4px 20px rgba(215,43,43,0.3); }
+        .tt-loading { text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.85rem; }
+        .recurring-subtitle {
+            text-align: center; font-size: 0.75rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.12em;
+            color: var(--text-muted); margin-bottom: 1.5rem; margin-top: 1rem;
+        }
+
         /* ===== PRICING ===== */
         #prezzi { background: var(--white); position: relative; overflow: hidden; }
         .pricing-grid {
@@ -553,7 +605,7 @@
                 </svg>
                 <h3>Dedicated Desk</h3>
                 <div class="jp-label">専用デスク</div>
-                <p>La tua scrivania fissa nel cuore del Japan Center. Spazio personale, armadietto, accesso 24/7.</p>
+                <p>La tua scrivania fissa nel cuore del Japan Center. Spazio personale, armadietto, accesso Lun–Ven 8:00–19:00.</p>
             </div>
             <div class="cowork-card reveal">
                 <svg class="card-svg" viewBox="0 0 56 56" fill="none">
@@ -604,7 +656,7 @@
         </div>
         <h2>Lavora con chi condivide la tua passione per il Giappone.</h2>
         <p>Non è solo una scrivania. È una rete di persone, idee e opportunità che nasce ogni giorno.</p>
-        <a href="https://community.japancenter.it/join?invitation_token=cd1b8aa00557574ee0e9e7c0b28d3f91f0d2c143-7cf79766-89de-4c7a-9b37-6a6c05407d0f" class="btn btn-primary" target="_blank" style="background:var(--white);color:var(--red);">Prenota una prova gratuita →</a>
+        <a href="mailto:academy@japancenter.it?subject=Prenota%20una%20prova%20gratuita" class="btn btn-primary" style="background:var(--white);color:var(--red);">Prenota una prova gratuita →</a>
     </div>
 
     <!-- EVENTI -->
@@ -613,6 +665,16 @@
             <span class="tag">Eventi — イベント</span>
             <h2>Succede sempre qualcosa.<span class="jp-sub">いつも何かが起きている。</span></h2>
         </div>
+        <!-- TICKET TAILOR DYNAMIC EVENTS -->
+        <div class="tt-events-section" id="tt-events-container">
+            <div class="tt-subtitle">📅 Prossimi eventi — 次のイベント</div>
+            <div class="tt-events-grid" id="tt-events-grid">
+                <div class="tt-loading">Caricamento eventi...</div>
+            </div>
+        </div>
+
+        <div class="recurring-subtitle">Eventi ricorrenti — 定期イベント</div>
+
         <div class="events-grid">
             <div class="event-card reveal">
                 <div class="event-img">
@@ -728,7 +790,7 @@
                     <li><span class="fc">✓</span> Accesso area relax</li>
                     <li><span class="fc">✓</span> Community digitale</li>
                 </ul>
-                <a href="https://community.japancenter.it/join?invitation_token=cd1b8aa00557574ee0e9e7c0b28d3f91f0d2c143-7cf79766-89de-4c7a-9b37-6a6c05407d0f" class="btn btn-outline" target="_blank">Inizia oggi →</a>
+                <a href="mailto:academy@japancenter.it?subject=Info%20Day%20Pass" class="btn btn-outline">Inizia oggi →</a>
             </div>
             <div class="pricing-card featured reveal">
                 <svg class="plan-svg" viewBox="0 0 48 48" fill="none">
@@ -750,7 +812,7 @@
                     <li><span class="fc">✓</span> Indirizzo aziendale</li>
                     <li><span class="fc">✓</span> Community digitale premium</li>
                 </ul>
-                <a href="https://community.japancenter.it/join?invitation_token=cd1b8aa00557574ee0e9e7c0b28d3f91f0d2c143-7cf79766-89de-4c7a-9b37-6a6c05407d0f" class="btn btn-primary" target="_blank">Scegli Monthly Flex →</a>
+                <a href="mailto:academy@japancenter.it?subject=Info%20Monthly%20Flex" class="btn btn-primary">Scegli Monthly Flex →</a>
             </div>
             <div class="pricing-card reveal">
                 <svg class="plan-svg" viewBox="0 0 48 48" fill="none">
@@ -765,13 +827,13 @@
                 <div class="price-note">La tua scrivania fissa, sempre pronta</div>
                 <ul class="features-list">
                     <li><span class="fc">✓</span> Scrivania personale fissa</li>
-                    <li><span class="fc">✓</span> Accesso 24/7</li>
+                    <li><span class="fc">✓</span> Accesso Lun–Ven 8–19</li>
                     <li><span class="fc">✓</span> Armadietto personale</li>
                     <li><span class="fc">✓</span> 8h/mese sala riunioni</li>
                     <li><span class="fc">✓</span> Tutti i benefit Monthly</li>
                     <li><span class="fc">✓</span> Priority eventi e networking</li>
                 </ul>
-                <a href="https://community.japancenter.it/join?invitation_token=cd1b8aa00557574ee0e9e7c0b28d3f91f0d2c143-7cf79766-89de-4c7a-9b37-6a6c05407d0f" class="btn btn-outline" target="_blank">Prenota il tuo desk →</a>
+                <a href="mailto:academy@japancenter.it?subject=Info%20Dedicated%20Desk" class="btn btn-outline">Prenota il tuo desk →</a>
             </div>
         </div>
     </section>
@@ -790,9 +852,9 @@
                 <div class="jp-stat">年間イベント</div>
             </div>
             <div class="stat-item">
-                <div class="number">24/7</div>
-                <div class="label">Accesso coworking</div>
-                <div class="jp-stat">コワーキングアクセス</div>
+                <div class="number">Lun–Ven</div>
+                <div class="label">8:00–19:00</div>
+                <div class="jp-stat">月〜金 営業</div>
             </div>
             <div class="stat-item">
                 <div class="number">∞</div>
@@ -837,7 +899,7 @@
                     </div>
                     <div class="space-detail">
                         <span class="icon-circle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="var(--red)" stroke-width="1.2" fill="none" opacity="0.5"/><line x1="8" y1="4" x2="8" y2="8" stroke="var(--red)" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/><line x1="8" y1="8" x2="11" y2="10" stroke="var(--red)" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/></svg></span>
-                        <span>Lun–Ven: 9:00–18:00</span>
+                        <span>Lun–Ven: 8:00–19:00</span>
                     </div>
                     <div class="space-detail">
                         <span class="icon-circle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="4" width="12" height="8" rx="3" fill="var(--red)" opacity="0.12"/><circle cx="8" cy="8" r="2.5" fill="var(--red)" opacity="0.2"/><text x="8" y="9.5" text-anchor="middle" font-size="4" fill="var(--red)" font-weight="900" opacity="0.6">M</text></svg></span>
@@ -990,6 +1052,62 @@
         }
         setInterval(createPetal, 1200);
         for (let i = 0; i < 6; i++) setTimeout(createPetal, i * 400);
+
+        // Ticket Tailor Events Integration
+        (async function loadTicketTailorEvents() {
+            const grid = document.getElementById('tt-events-grid');
+            const container = document.getElementById('tt-events-container');
+            try {
+                const resp = await fetch('https://api.tickettailor.com/v1/events?status=published', {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Authorization': 'Basic ' + btoa('sk_14423_308355_296a640c8c7742264a80cd790754802a:')
+                    }
+                });
+                if (!resp.ok) throw new Error('API error');
+                const json = await resp.json();
+                const events = (json.data || []).filter(e => e.status === 'published' && e.hidden === 'false');
+                if (events.length === 0) {
+                    container.style.display = 'none';
+                    return;
+                }
+                const months = ['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'];
+                grid.innerHTML = events.map(ev => {
+                    const start = ev.start || {};
+                    const d = start.date ? new Date(start.iso || start.date) : null;
+                    const dateStr = d ? d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear() : '';
+                    const timeStr = start.time || '';
+                    const img = (ev.images && ev.images.header) ? '<img src="' + ev.images.header + '" alt="' + ev.name + '">' : '';
+                    const venueName = ev.venue ? ev.venue.name : '';
+                    // Strip HTML from description and truncate
+                    const tmp = document.createElement('div');
+                    tmp.innerHTML = ev.description || '';
+                    const plainDesc = tmp.textContent || tmp.innerText || '';
+                    const shortDesc = plainDesc.length > 160 ? plainDesc.substring(0, 160) + '...' : plainDesc;
+                    // Price
+                    const tickets = ev.ticket_types || [];
+                    let priceStr = 'Gratuito';
+                    if (tickets.length > 0) {
+                        const minPrice = Math.min(...tickets.map(t => t.price));
+                        if (minPrice > 0) priceStr = '€' + (minPrice / 100).toFixed(0);
+                    }
+                    const url = ev.url || '#';
+                    return '<a href="' + url + '" target="_blank" class="tt-event-card" style="text-decoration:none;color:inherit;">' +
+                        '<div class="tt-event-img">' + img +
+                        '<span class="tt-date-badge">' + dateStr + (timeStr ? ' • ' + timeStr : '') + '</span>' +
+                        '<span class="tt-price-badge">' + priceStr + '</span>' +
+                        '</div>' +
+                        '<div class="tt-event-body">' +
+                        '<h3>' + ev.name + '</h3>' +
+                        (venueName ? '<div class="tt-venue">📍 ' + venueName + '</div>' : '') +
+                        '<p class="tt-desc">' + shortDesc + '</p>' +
+                        '<span class="tt-cta">' + (ev.call_to_action || 'Acquista biglietti') + ' →</span>' +
+                        '</div></a>';
+                }).join('');
+            } catch (e) {
+                container.style.display = 'none';
+            }
+        })();
     </script>
 </body>
 </html>
